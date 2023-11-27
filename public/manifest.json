@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "youtubeAdGame",
+  "description": "Puts a game over the youtube advertisement",
+  "version": "1.0",
+  "permissions": ["activeTab"],
+  "action": {
+    "default_popup": "index.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "externally_connectable": {
+    "matches": ["*://localhost:*/*"]
+  },
+  "content_scripts": [
+    {
+      "js": ["./content.js"],
+      "css": ["./content.css"],
+      "matches": ["https://www.youtube.com/*"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["popup.css"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

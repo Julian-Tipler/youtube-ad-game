@@ -1,0 +1,16 @@
+.coverDiv {
+  background-color: rgb(41, 114, 187);
+  pointer-events: none;
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.coverDivText {
+  font-size: 30px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  pointer-events: none;
+}
