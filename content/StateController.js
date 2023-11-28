@@ -1,6 +1,7 @@
 const fetchStates = {
   searching: "searching",
   blocked: "blocked",
+  regularVid: "regularVid",
 };
 export default class StateController {
   constructor() {
@@ -12,5 +13,8 @@ export default class StateController {
   }
   blocked() {
     this.fetchState = fetchStates.blocked;
+  }
+  regularVid() {
+    this.fetchState = fetchStates.regularVid;
   }
 }

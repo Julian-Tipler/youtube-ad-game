@@ -1,53 +1,36 @@
-import { funFacts } from "./funFacts";
+import { createCoverDiv } from "./helpers/createCoverDiv";
 import StateController from "./stateController";
 
 console.log("content.js 🚀");
 window.addEventListener("load", () => {
   const stateController = new StateController();
   setInterval(() => {
+    // every 50ms select for ad
     const ad = [...document.querySelectorAll(".ad-showing")][0];
+    const video = document.querySelector("video");
+    if (!video) return;
+    const initialVolume = video.volume;
 
+    // if the ad video is playing
     if (ad) {
-      const video = document.querySelector("video");
-      const skipBtn = document.querySelector(".ytp-ad-skip-button-modern");
-      if (video) {
+      // if the video isn't blocked already
+      if (stateController.fetchState != "blocked") {
         video.style.zIndex = "-1";
         video.volume = 0;
-        const height = video.offsetHeight;
-        const width = video.offsetWidth;
-        if (stateController.fetchState != "blocked") {
-          Log("blocking");
-          const coverDiv = document.createElement("div");
-          coverDiv.classList.add("coverDiv");
-          coverDiv.style.height = height + "px";
-          coverDiv.style.width = width + "px";
-          console.log(
-            "height",
-            "width",
-            coverDiv.style.height,
-            coverDiv.style.width
-          );
-          const coverDivText = document.createElement("div");
-          coverDivText.classList.add("coverDivText");
-          coverDivText.innerText =
-            funFacts[Math.floor(Math.random() * funFacts.length)];
-          coverDiv.appendChild(coverDivText);
-          video.parentNode.appendChild(coverDiv);
-          stateController.blocked();
-        }
+        const coverDiv = createCoverDiv({ video });
+        video.parentNode.appendChild(coverDiv);
+        stateController.blocked();
       }
-
-      if (skipBtn) {
-        Log("skipBtn clicked");
-        skipBtn?.click();
+      const skipButton = document.querySelector(".ytp-ad-skip-button-modern");
+      if (skipButton) {
+        skipButton?.click();
         stateController.searching();
       }
+      // if the non-ad video is not playing
     } else {
-      const video = document.querySelector("video");
-      if (video) {
-        video.style.zIndex = "1";
-        video.volume = 1;
-      }
+      stateController.regularVid();
+      video.style.zIndex = "1";
+      video.volume = initialVolume;
     }
     const overlay = document.getElementsByClassName(
       "ytp-ad-player-overlay-flyout-cta"
