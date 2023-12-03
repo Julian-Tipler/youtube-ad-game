@@ -1,5 +1,6 @@
 import { createCoverDiv } from "./helpers/createCoverDiv";
-import StateController from "./stateController";
+import StateController from "./controllers/StateController";
+import "./game/game.css";
 
 console.log("content.js 🚀");
 window.addEventListener("load", () => {

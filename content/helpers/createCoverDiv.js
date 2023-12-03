@@ -1,4 +1,4 @@
-import { funFacts } from "../funFacts";
+import { game } from "../game/game";
 
 export const createCoverDiv = ({ video }) => {
   const height = video.offsetHeight;
@@ -8,10 +8,7 @@ export const createCoverDiv = ({ video }) => {
   coverDiv.classList.add("coverDiv");
   coverDiv.style.height = height + "px";
   coverDiv.style.width = width + "px";
-  const coverDivText = document.createElement("div");
-  coverDivText.classList.add("coverDivText");
-  coverDivText.innerText =
-    funFacts[Math.floor(Math.random() * funFacts.length)];
-  coverDiv.appendChild(coverDivText);
+  const gameContainer = game();
+  coverDiv.appendChild(gameContainer);
   return coverDiv;
 };
