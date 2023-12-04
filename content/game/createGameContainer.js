@@ -1,5 +1,5 @@
-import { createGame } from "./createGame.js";
-import { flappyCode } from "./flappyCode.js";
+import { createGame } from "./helpers/createGame.js";
+import { flappyCode } from "./helpers/flappyCode.js";
 
 // Contains no game logic, just creates the game container and handles screen resizing
 export const createGameContainer = ({ video }) => {

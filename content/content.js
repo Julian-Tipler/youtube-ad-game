@@ -7,14 +7,14 @@ window.addEventListener("load", () => {
   const stateController = new StateController();
   setInterval(() => {
     // every 50ms select for ad
-    const ad = [...document.querySelectorAll(".ad-showing")][0];
     const video = document.querySelector("video");
     if (!video) return;
     const initialVolume = video.volume;
 
     // if the ad video is playing
-    // TODO temporary
-    if (true) {
+    const ad = [...document.querySelectorAll(".ad-showing")][0];
+    if (ad) {
+      console.log("VIDEO AND AD ARE SHOWING");
       // if the video isn't blocked already
       if (stateController.fetchState != "blocked") {
         video.style.zIndex = "-1";
