@@ -11,12 +11,12 @@ export const createGameContainer = ({ video }) => {
   gameContainer.style.height = height + "px";
   gameContainer.style.width = width + "px";
   video.parentNode.appendChild(gameContainer);
+  const resizeObserver = new ResizeObserver(handleResize({ gameContainer }));
+  resizeObserver.observe(video);
 
   createGame({ gameContainer });
 
   // Once the gameContainer is created, we can observe the video element for changes in size
-  const resizeObserver = new ResizeObserver(handleResize({ gameContainer }));
-  resizeObserver.observe(video);
   return gameContainer;
 };
 
