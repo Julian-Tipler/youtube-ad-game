@@ -1,5 +1,5 @@
 import { createGame } from "./helpers/createGame.js";
-import { flappyCode } from "./helpers/flappyCode.js";
+import {} from "./helpers/injectGameLogic.js";
 
 // Contains no game logic, just creates the game container and handles screen resizing
 export const createGameContainer = ({ video }) => {
@@ -10,9 +10,9 @@ export const createGameContainer = ({ video }) => {
   gameContainer.classList.add("game-container");
   gameContainer.style.height = height + "px";
   gameContainer.style.width = width + "px";
-  gameContainer.appendChild(createGame());
   video.parentNode.appendChild(gameContainer);
-  flappyCode();
+
+  createGame({ gameContainer });
 
   // Once the gameContainer is created, we can observe the video element for changes in size
   const resizeObserver = new ResizeObserver(handleResize({ gameContainer }));
