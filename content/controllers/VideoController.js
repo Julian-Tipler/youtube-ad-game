@@ -4,11 +4,11 @@ export default class VideoController {
     this.initialVolume = video.volume;
   }
 
-  block() {
+  hidden() {
     this.video.style.zIndex = "-1";
     this.video.volume = 0;
   }
-  reveal() {
+  revealed() {
     this.video.style.zIndex = "1";
     this.video.volume = this.initialVolume;
   }

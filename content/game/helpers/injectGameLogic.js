@@ -1,4 +1,7 @@
-
+const gameStates = {
+  PLAYING: "playing",
+  LOSE: "lose",
+};
 
 export const injectGameLogic = () => {
   let gameState = gameStates.PLAYING;

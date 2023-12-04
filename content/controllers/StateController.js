@@ -1,20 +1,20 @@
-const fetchStates = {
+const states = {
   searching: "searching",
   blocked: "blocked",
   regularVid: "regularVid",
 };
 export default class StateController {
   constructor() {
-    this.fetchState = fetchStates.searching;
+    this.state = states.searching;
   }
 
   searching() {
-    this.fetchState = fetchStates.searching;
+    this.state = states.searching;
   }
   blocked() {
-    this.fetchState = fetchStates.blocked;
+    this.state = states.blocked;
   }
   regularVid() {
-    this.fetchState = fetchStates.regularVid;
+    this.state = states.regularVid;
   }
 }
