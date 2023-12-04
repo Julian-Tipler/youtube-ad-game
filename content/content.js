@@ -1,25 +1,24 @@
-import { createCoverDiv } from "./helpers/createCoverDiv";
 import StateController from "./controllers/StateController";
-import "./game/game.css";
+import { createGameContainer } from "./game/createGameContainer";
+import "./content.css";
+import VideoController from "./controllers/VideoController";
 
 console.log("content.js 🚀");
 window.addEventListener("load", () => {
   const stateController = new StateController();
+  // Every 200ms check if video and ad are playing
   setInterval(() => {
-    // every 50ms select for ad
-    const ad = [...document.querySelectorAll(".ad-showing")][0];
     const video = document.querySelector("video");
+    const ad = [...document.querySelectorAll(".ad-showing")][0];
+    // Do nothing if there is no video element
     if (!video) return;
-    const initialVolume = video.volume;
-
-    // if the ad video is playing
+    const videoController = new VideoController(video);
+    // If there is an ad element load the game
     if (ad) {
       // if the video isn't blocked already
       if (stateController.fetchState != "blocked") {
-        video.style.zIndex = "-1";
-        video.volume = 0;
-        const coverDiv = createCoverDiv({ video });
-        video.parentNode.appendChild(coverDiv);
+        videoController.block();
+        createGameContainer({ video });
         stateController.blocked();
       }
       const skipButton = document.querySelector(".ytp-ad-skip-button-modern");
@@ -27,11 +26,11 @@ window.addEventListener("load", () => {
         skipButton?.click();
         stateController.searching();
       }
-      // if the non-ad video is not playing
-    } else {
+    }
+    // if the regular (non-ad) video is playing change video settings to normal
+    else {
       stateController.regularVid();
-      video.style.zIndex = "1";
-      video.volume = initialVolume;
+      videoController.reveal();
     }
     const overlay = document.getElementsByClassName(
       "ytp-ad-player-overlay-flyout-cta"
@@ -40,9 +39,5 @@ window.addEventListener("load", () => {
     if (overlay) {
       overlay.style.display = "none";
     }
-  }, 50);
+  }, 200);
 });
-
-const Log = (msg) => {
-  console.log("***" + "\n" + msg + "\n" + "***");
-};

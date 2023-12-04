@@ -16,8 +16,8 @@
   },
   "content_scripts": [
     {
-      "js": ["./content.js"],
-      "css": ["./content.css"],
+      "js": ["content.js"],
+      "css": ["content.css"],
       "matches": ["https://www.youtube.com/*"]
     }
   ],
