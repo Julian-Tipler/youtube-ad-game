@@ -9,22 +9,23 @@ window.addEventListener("load", () => {
   // Every 200ms check if video and ad are playing
   setInterval(() => {
     const video = document.querySelector("video");
-    const ad = [...document.querySelectorAll(".ad-showing")][0];
-    // Do nothing if there is no video element
     if (!video) return;
     const videoController = new VideoController(video);
-    // If there is an ad element load the game
+
+    // If there is an ad element block the video and create the game.
+    const ad = [...document.querySelectorAll(".ad-showing")][0];
     if (ad) {
-      // if the video isn't blocked already
-      if (stateController.fetchState != "blocked") {
-        videoController.block();
-        createGameContainer({ video });
-        stateController.blocked();
-      }
+      // Attempt a skip
       const skipButton = document.querySelector(".ytp-ad-skip-button-modern");
       if (skipButton) {
         skipButton?.click();
         stateController.searching();
+      }
+      // If the video isn't blocked already block it and create the game
+      if (stateController.fetchState != "blocked") {
+        videoController.block();
+        stateController.blocked();
+        createGameContainer({ video });
       }
     }
     // if the regular (non-ad) video is playing change video settings to normal
