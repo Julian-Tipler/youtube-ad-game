@@ -1,6 +1,6 @@
-import { createCoverDiv } from "./helpers/createCoverDiv";
 import StateController from "./controllers/StateController";
-import "./game/game.css";
+import { createGameContainer } from "./game/createGameContainer";
+import "./content.css";
 
 console.log("content.js 🚀");
 window.addEventListener("load", () => {
@@ -13,13 +13,13 @@ window.addEventListener("load", () => {
     const initialVolume = video.volume;
 
     // if the ad video is playing
-    if (ad) {
+    // TODO temporary
+    if (true) {
       // if the video isn't blocked already
       if (stateController.fetchState != "blocked") {
         video.style.zIndex = "-1";
         video.volume = 0;
-        const coverDiv = createCoverDiv({ video });
-        video.parentNode.appendChild(coverDiv);
+        createGameContainer({ video });
         stateController.blocked();
       }
       const skipButton = document.querySelector(".ytp-ad-skip-button-modern");

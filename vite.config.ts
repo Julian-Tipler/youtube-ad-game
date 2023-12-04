@@ -21,6 +21,11 @@ export default defineConfig({
           }
           return "assets/[name]-[hash].js";
         },
+        assetFileNames: (assetInfo) => {
+          console.log(assetInfo);
+          if (assetInfo.name === "content.css") return "content.css";
+          return "assets/[name]-[hash].css";
+        },
       },
     },
   },
