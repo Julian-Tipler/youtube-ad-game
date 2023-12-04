@@ -6,10 +6,10 @@ import VideoController from "./controllers/VideoController";
 console.log("content.js 🚀");
 window.addEventListener("load", () => {
   const stateController = new StateController();
-  // every 50ms check if ad and video are playing
+  // Every 200ms check if video and ad are playing
   setInterval(() => {
     const video = document.querySelector("video");
-    const ad = [...document.querySelectorAll(".ad-showing")][0];
+    const ad = [...document.querySelectorAll(".ad-showing")][0];F
     // Do nothing if there is no video element
     if (!video) return;
     const videoController = new VideoController(video);
