@@ -1,24 +1,24 @@
 import StateController from "./controllers/StateController";
 import { createGameContainer } from "./game/createGameContainer";
 import "./content.css";
+import VideoController from "./controllers/VideoController";
 
 console.log("content.js 🚀");
 window.addEventListener("load", () => {
   const stateController = new StateController();
+  // every 50ms check if ad and video are playing
   setInterval(() => {
-    // every 50ms select for ad
     const video = document.querySelector("video");
-    if (!video) return;
-    const initialVolume = video.volume;
-
-    // if the ad video is playing
     const ad = [...document.querySelectorAll(".ad-showing")][0];
+    // Do nothing if there is no video element
+    if (!video) return;
+    const videoController = new VideoController(video);
+    // If there is an ad element load the game
     if (ad) {
       console.log("VIDEO AND AD ARE SHOWING");
       // if the video isn't blocked already
       if (stateController.fetchState != "blocked") {
-        video.style.zIndex = "-1";
-        video.volume = 0;
+        videoController.block();
         createGameContainer({ video });
         stateController.blocked();
       }
@@ -27,11 +27,11 @@ window.addEventListener("load", () => {
         skipButton?.click();
         stateController.searching();
       }
-      // if the non-ad video is not playing
-    } else {
+    }
+    // if the regular (non-ad) video is playing change video settings to normal
+    else {
       stateController.regularVid();
-      video.style.zIndex = "1";
-      video.volume = initialVolume;
+      videoController.reveal();
     }
     const overlay = document.getElementsByClassName(
       "ytp-ad-player-overlay-flyout-cta"
@@ -40,9 +40,9 @@ window.addEventListener("load", () => {
     if (overlay) {
       overlay.style.display = "none";
     }
-  }, 50);
+  }, 200);
 });
 
-const Log = (msg) => {
-  console.log("***" + "\n" + msg + "\n" + "***");
-};
+// const Log = (msg) => {
+//   console.log("***" + "\n" + msg + "\n" + "***");
+// };
