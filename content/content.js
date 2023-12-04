@@ -15,7 +15,6 @@ window.addEventListener("load", () => {
     const videoController = new VideoController(video);
     // If there is an ad element load the game
     if (ad) {
-      console.log("VIDEO AND AD ARE SHOWING");
       // if the video isn't blocked already
       if (stateController.fetchState != "blocked") {
         videoController.block();
@@ -42,7 +41,3 @@ window.addEventListener("load", () => {
     }
   }, 200);
 });
-
-// const Log = (msg) => {
-//   console.log("***" + "\n" + msg + "\n" + "***");
-// };
